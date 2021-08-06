@@ -80,6 +80,7 @@ CSV,Json,xml 의 자료를 파싱하는 코드를 구현한다는 가정
 시간 응집 클래스는 시간과 관련된 연산을 그룹화 함.
 
 <실전자바소프트웨어개발 p.38>
+
 ![image](https://user-images.githubusercontent.com/26279988/128433943-9f71eda0-0d2d-4d88-8f81-6c4bc6ce20a1.png)
 
 #### 메서드 수준 응집도
@@ -93,7 +94,47 @@ CSV,Json,xml 의 자료를 파싱하는 코드를 구현한다는 가정
 결합도는 한 기능이 다른 클래스에 얼마나 의존하고 있는 지.
 어떤 클래스를 구현하는 데 얼마나 많은 클래스를 참조했는 가로 설명할 수 있음.
 
-<예제 - 실전자바소프트웨어개발 p.41>
+<실전자바소프트웨어개발 p.41>
+
 ![image](https://user-images.githubusercontent.com/26279988/128436946-1d784ead-168e-438c-9e79-d175cb9a8b0d.png)
 
 보통 코드를 구현할 때 결합도를 낮춰야 한다. 이는 코드의 다양한 컴포넌트가 내부와 세부 구현에 의존하지 않아야 함을 의미한다.
+
+## 테스트
+Junit(제이유닛)을 통해 테스트를 구현
+테스트 장점
+  - 확신
+  - 변화에도 튼튼함을 유지
+  - 프로그램 이해도
+  
+Maven, gradle 빌드 도구에서는 src/main/java에 코드를 저장하고, src/test/java에 테스트 클래스를 저장하는 것이 기본규칙
+
+
+```Java
+	@Test
+	public void shouldParseOneCorrectLine() throws Exception {
+		//Assert.fail("Not yet implemented");
+		
+		final String line = "30-01-2017, -50,Tesco";
+		
+		final BankTransaction result = statementParser.parseFrom(line);
+		final BankTransaction expected = new BankTransaction(LocalDate.of(2017,Month.JANUARY, 30), -50, "Tesco");
+		
+		final double tolerance = 0.0d;
+		
+		Assert.assertEquals(expected.getDate(), result.getDate());
+		Assert.assertEquals(expected.getAmount(), result.getAmount(), tolerance);
+		Assert.assertEquals(expected.getDescription(), result.getDescription());
+	}
+```
+
+1. 테스트의 콘텍스트를 설정
+2. 동작을 실행
+3. 예상된 결과를 어서션으로 지정하고 확인
+유닛 테스트 설정의 세 단계 패턴을 Given-When-Then 공식이라 부른다.
+
+어서션 구문 (실전 자바 소프트웨어 개발 p.46 표 2-2)
+
+![image](https://user-images.githubusercontent.com/26279988/128439165-162390f2-346b-499d-9064-d75f6e90ca5d.png)
+
+
