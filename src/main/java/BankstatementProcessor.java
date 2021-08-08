@@ -75,8 +75,58 @@ public class BankstatementProcessor {
 	    	}
 	    	
 	    	return minTransaction;
-	    }
+	}
+	// 특정 금액 이상의 은행 거래내역 찾기
+	public List<BankTransaction> findTransactionsGreaterThanEqul(final int amount){
+		final List<BankTransaction> result = new ArrayList<>();
+		
+		for(final BankTransaction bankTransaction : bankTransactions){
+			if(bankTransaction.getAmount()>=amount){
+				result.add(bankTransaction);
+			}
+		}
+		return result;
+	}
     
+	// 특정 월의 입출금 내역 찾기
+	public List<BankTransaction> findTransactionsInMonth(final Month month){
+		final List<BankTransaction> result = new ArrayList<>();
+		for(final BankTransaction bankTransaction : bankTransactions){
+			if(bankTransaction.getDate().getMonth().equals(month)){
+				result.add(bankTransaction);
+			}
+		}
+		return result;
+	}
+	
+	//특정 월과 금액으로 입출금 내역 검색하기
+	/*
+	 *  문제점 : 거래 내역의 여러 속성을 조합할 수록 코드가 점점 복잡
+	 *  	   반복 로직과 비즈니스 로직이 결합되어 분리되어가 어려워진다.
+	 *        코드를 반복한다.
+	 */
+	
+	public List<BankTransaction> findTransactionsInMonthAndGreater(final Month month, final int amount){
+		final List<BankTransaction> result = new ArrayList<>();
+		
+		for(final BankTransaction bankTransaction : bankTransactions){
+			if(bankTransaction.getDate().getMonth().equals(month) && bankTransaction.getAmount()>=amount){
+				result.add(bankTransaction);
+			}
+		}
+		return result;
+	}
     
+	
+	public List<BankTransaction> findTransactions(final BankTransactionFilter bankTransactionFilter){
+		final List<BankTransaction> result = new ArrayList<>();
+		for(final BankTransaction bankTransaction : bankTransactions){
+			if(bankTransactionFilter.test(bankTransaction)){
+				result.add(bankTransaction);
+			}
+		}
+		
+		return result;
+	}
     
 }

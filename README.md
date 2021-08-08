@@ -138,3 +138,9 @@ Maven, gradle 빌드 도구에서는 src/main/java에 코드를 저장하고, sr
 ![image](https://user-images.githubusercontent.com/26279988/128439165-162390f2-346b-499d-9064-d75f6e90ca5d.png)
 
 
+### 개방/폐쇄 원칙
+
+함수형 인터페이스(@FunctionalInterface) : 한 개의 추상메서드를 포함하는 인터페이스 
+
+
+
