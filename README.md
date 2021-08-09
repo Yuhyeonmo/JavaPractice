@@ -143,4 +143,26 @@ Maven, gradle 빌드 도구에서는 src/main/java에 코드를 저장하고, sr
 함수형 인터페이스(@FunctionalInterface) : 한 개의 추상메서드를 포함하는 인터페이스 
 
 
+## 람다 표현식 
+자바 8부터는 예제 3-8 처럼 람다표현식을 사용
 
+```Java
+//Lambda 표현식
+    	final List<BankTransaction> transactions = bankstatementProcessor.findTransactions(bankTransacion -> bankTransacion.getDate().getMonth()==Month.FEBRUARY
+    			&& bankTransacion.getAmount() >= 1_000);
+```
+
+## 갓인터페이스
+
+자바의 인터페이스는 모든 구현이 지켜야 할 규칙을 정의한다.
+즉, 구현 클래스에서는 모든 연산의 구현코드를 제공해야한다. 따라서 인터페이스를 바꾸면 이를 구현한 코드도 바뀐 내용을 지원하도록 갱신되어야 한다. 더 많은 연산을 추가할수록 더 자주 코드가 바뀌며, 문제가 발생할 수 있는 범위도 넓어진다.
+
+하지만 반대로 지나친 세밀함도 좋지 않음. 지나치게 세밀하게 구현한 경우 유지보수에 방해됨(**안티 응집도**)
+
+## 명시적 API vs 암묵적 API
+
+findTranscationGreaterThanEqul() 같은 메소드는 어떤 동작을 수행하는 지 잘 설명되어 있고, 사용하기 쉽다. 하지만 상황에 구한되어 각 상황에 맞는 새로운 메서드를 많이 만들어야 하는 상황이 발생함.
+
+반면 findTransaction() 같은 메서드는 처음 사용하기가 어렵고, 문서화를 잘 해놓아야 한다. 하지만 거래내역을 검색하는 데 필요한 모든 상황을 단순한 API로 처리할 수 있다.
+
+findTranscationGreaterThanEqul() 메서드가 가장 흔히 사용하는 연산이라면, 사용자가 쉽게 이해하고 사용하도록 이를 명시적 API로 만드는 것이 합리적이다.
