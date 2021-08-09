@@ -128,5 +128,23 @@ public class BankstatementProcessor {
 		
 		return result;
 	}
+	
+	public List<BankTransaction> findTransactionsGreateThanEqul(final double amount){
+		return findTransactions(bankTransaction -> bankTransaction.getAmount()>=amount);
+	}
     
+	public double summarizeTransactions(final BankTransactionSummarizer bankTransactionSummarizer){
+		double result = 0;
+		for(final BankTransaction bankTransaction : bankTransactions){
+			result = bankTransactionSummarizer.summarize(result, bankTransaction);
+		}
+		return result;
+	}
+	
+	public double calculateTotalInMonth(final Month month){
+		return summarizeTransactions((acc, bankTransaction) ->
+								bankTransaction.getDate().getMonth()==month ? acc+bankTransaction.getAmount() : acc);
+		
+	}
+	
 }

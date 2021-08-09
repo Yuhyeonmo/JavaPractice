@@ -30,9 +30,15 @@ public class BankStatementAnalyzer {
     	
     	final BankstatementProcessor bankstatementProcessor = new BankstatementProcessor(bankTransactions);
     	
+    	//Lambda 표현식
+    	final List<BankTransaction> transactions = bankstatementProcessor.findTransactions(bankTransacion -> bankTransacion.getDate().getMonth()==Month.FEBRUARY
+    			&& bankTransacion.getAmount() >= 1_000);
+    	
     	collectSummary(bankstatementProcessor);
     	
     }
+    
+
     
     private static final BankStatementCSVParser bankStatementParser = new BankStatementCSVParser();
 
