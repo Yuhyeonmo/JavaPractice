@@ -1,4 +1,4 @@
-package main.java;
+package main.java.bankTransaction;
 
 // 논리 응집 예제
 

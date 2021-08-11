@@ -10,9 +10,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 
-import main.java.BankStatementCSVParser;
-import main.java.BankStatementParser;
-import main.java.BankTransaction;
+import main.java.bankTransaction.BankStatementCSVParser;
+import main.java.bankTransaction.BankStatementParser;
+import main.java.bankTransaction.BankTransaction;
 
 import org.junit.Assert;
 import org.junit.Test;
